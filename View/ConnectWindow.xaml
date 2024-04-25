@@ -1,0 +1,22 @@
+﻿<Window x:Class="AgeenkovApp.View.ConnectWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AgeenkovApp.View"
+        mc:Ignorable="d"
+        Title="Подключение к БД" Height="250" Width="450" ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen" Background="#FFC0EDFF">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.3*"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="0.3*"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="1" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center">Подключение к БД</Label>
+        <TextBox Grid.Row="2" Margin="15" Text="{Binding DataBaseName, UpdateSourceTrigger=PropertyChanged}"/>
+        <Button Grid.Row="3" Width="200" Height="30" Command="{Binding ConnectToDB}" IsDefault="True">Подключиться</Button>
+    </Grid>
+</Window>

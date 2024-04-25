@@ -1,0 +1,41 @@
+﻿<Window x:Class="AgeenkovApp.View.NewCustomerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AgeenkovApp.View"
+        mc:Ignorable="d"
+        Title="Новый заказчик" Height="250" Width="400" ResizeMode="NoResize" Background="#FFC0EDFF">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.2*"/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="0.2*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.4*"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="0.4*"/>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" Grid.RowSpan="2">
+            <StackPanel>
+                <TextBlock FontSize="20" FontWeight="DemiBold" HorizontalAlignment="Center">Создание заказчика</TextBlock>
+
+                <DockPanel Margin="0,5,0,0">
+                    <TextBlock HorizontalAlignment="Left" Margin="14.3,10,0,0" FontSize="16">Название/Имя:</TextBlock>
+                    <TextBox Margin="10,0,0,0" Width="180" Height="22" HorizontalAlignment="Left" VerticalAlignment="Bottom" x:Name="titleBox" Text="{Binding Path=Name}"></TextBox>
+                </DockPanel>
+                <DockPanel Margin="0,10,0,0">
+                    <TextBlock HorizontalAlignment="Left" Margin="53.5,10,0,0" FontSize="16"> Контакты:</TextBlock>
+                    <TextBox Margin="10,0,0,0" Width="180" Height="22" HorizontalAlignment="Left" VerticalAlignment="Bottom" x:Name="contactBox" Text="{Binding Path=Email}"></TextBox>
+                </DockPanel>
+                <StackPanel Margin="0,20,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" RenderTransformOrigin="0.575,1.238" Orientation="Horizontal">
+                    <Button Width="70" Height="22" Margin="0,0,15,0" Click="Button_Click" IsDefault="True">Сохранить</Button>
+                    <Button Width="70" Height="22" Margin="15,0,0,0" IsCancel="True">Отмена</Button>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Window>

@@ -1,0 +1,98 @@
+﻿<Window x:Class="AgeenkovApp.View.AreasWindows"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AgeenkovApp.View" 
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors" xmlns:viewmodel="clr-namespace:AgeenkovApp.ViewModel" 
+        d:DataContext="{d:DesignInstance Type=viewmodel:AreaVM}"
+        mc:Ignorable="d"
+        Title="Окно площади" 
+        MinHeight="550" Height="550" 
+        MinWidth="760" Width="760"
+        Name="Main" Background="White">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.5*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Background="#FFC0EDFF">
+            <Label>Название площади</Label>
+            <TextBox Text="{Binding AreaName}" Margin="15,0,15,0"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Margin="0,0,0,245" Grid.RowSpan="2" Background="#FFC0EDFF">
+            <Label>Точки площади:</Label>
+            <ScrollViewer MinWidth="230" Width="auto" Height="150" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                <ListView ItemsSource="{Binding Area.Coords}" SelectedItem="{Binding SelectedCoord}" d:ItemsSource="{d:SampleData ItemCount=5}" Background="#FFC0EDFF">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="X: "/>
+                                <TextBox MinWidth="40" Text="{Binding X}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="LostFocus">
+                                            <i:InvokeCommandAction Command="{Binding DataContext.SaveCoordCmd, ElementName=Main}" CommandParameter="{Binding}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </TextBox>
+                                <Label Content="Y: "/>
+                                <TextBox MinWidth="40" Text="{Binding Y}">
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="LostFocus">
+                                            <i:InvokeCommandAction Command="{Binding DataContext.SaveCoordCmd, ElementName=Main}" CommandParameter="{Binding}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </TextBox>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollViewer>
+
+            <StackPanel Margin="0,8,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Width="100" Height="25" Content="Добавить" Command="{Binding AddCoordCmd}" RenderTransformOrigin="0.521,0.494"/>
+                <Button Width="100" Height="25" Margin="10,0,0,0" Content="Удалить" Command="{Binding DeleteCoordCmd}"/>
+            </StackPanel>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Background="#FFC0EDFF" >
+            <Label>Профили:</Label>
+            <ScrollViewer MinWidth="230" Width="auto" Height="150" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                <ListView ItemsSource="{Binding Area.Profiles}" SelectedItem="{Binding SelectedProfile}" d:ItemsSource="{d:SampleData ItemCount=5}" Background="#FFC0EDFF">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Id}" Padding="5"/>
+                                <Button Content="Открыть" Command="{Binding DataContext.OpenProfileCmd, ElementName=Main}" CommandParameter="{Binding}"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollViewer>
+
+            <StackPanel Margin="0,8,0,0" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Width="100" Height="25" Margin="0,0,10,0" Content="Добавить" Command="{Binding AddProfileCmd}"/>
+                <Button Width="100" Height="25" Margin="10,0,0,0" Content="Удалить" Command="{Binding DeleteProfileCmd}"/>
+            </StackPanel>
+        </StackPanel>
+
+        <Grid Grid.Column="1" Grid.RowSpan="3">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.07*"/>
+                <RowDefinition/>
+                <RowDefinition Height="0.01*"/>
+            </Grid.RowDefinitions>
+            <Label Background="#FFC0EDFF">Отображение:</Label>
+            <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Hidden">
+                <Image Source="{Binding Image}" Stretch="Uniform" OpacityMask="White"/>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</Window>

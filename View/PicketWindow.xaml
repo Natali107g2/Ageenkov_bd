@@ -1,0 +1,61 @@
+﻿<Window x:Class="AgeenkovApp.View.PicketWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AgeenkovApp.View" 
+        xmlns:oxy="http://oxyplot.org/wpf"
+        mc:Ignorable="d"
+        Title="Окно пикета" 
+        Height="450" Width="1000"
+        MinHeight="450" MinWidth="800" Name="Main" Background="#FFC0EDFF">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.9*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="0.08*"/>
+        </Grid.RowDefinitions>
+
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <ListView ItemsSource="{Binding Picket.Measurings}" d:ItemsSource="{d:SampleData ItemCount=5}" Background="#FFC0EDFF">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="ID" DisplayMemberBinding="{Binding Id}"/>
+                        <GridViewColumn Header="ID пикета" DisplayMemberBinding="{Binding Picket.Id}"/>
+                        <GridViewColumn Header="Оператор">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Content="{Binding Operator.Name}"/>
+                                        <Label Content="{Binding Operator.LastName}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Время" DisplayMemberBinding="{Binding MeasuringDateTime}"/>
+                        <GridViewColumn Header="Значение" DisplayMemberBinding="{Binding MeasuringValue}"/>
+                        <GridViewColumn>
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Content="Удалить" Command="{Binding DataContext.DeleteMeasuringCmd, ElementName=Main}" CommandParameter="{Binding}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </ScrollViewer>
+
+        <StackPanel  Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Width="200" Height="25" Margin="10,0,0,0" Content="Добавить измерение" Command="{Binding AddMeasuringCmd}"/>
+            <Button Width="200" Height="25" Margin="10,0,0,0" Content="Обновить график" Command="{Binding RefreshCmd}"/>
+        </StackPanel>
+
+        <ScrollViewer Grid.Column="1" Grid.RowSpan="2" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <oxy:PlotView Model="{Binding PlotModel}"/>
+        </ScrollViewer>
+    </Grid>
+</Window>
